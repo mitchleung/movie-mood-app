@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const params = new URLSearchParams(searchParams);
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/discover/movie?${params.toString()}`,
+    `https://api.themoviedb.org/3/search/movie?${params.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
