@@ -22,7 +22,7 @@ export function MovieDetailModal({
       aria-label={movie.title}
     >
       <div
-        className="bg-white rounded-lg max-w-lg w-full max-h-[85vh] overflow-y-auto"
+        className="bg-white dark:text-gray-600 rounded-lg max-w-lg w-full max-h-[85vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-start p-4 border-b">

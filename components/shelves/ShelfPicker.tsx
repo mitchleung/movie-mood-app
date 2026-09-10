@@ -14,7 +14,7 @@ export function ShelfPicker({ movieId }: { movieId: number }) {
     return (
       <button
         onClick={() => setShowInput(true)}
-        className="cursor-pointer text-xs text-primary hover:underline mt-1 outline-0 focus-within:outline-1 focus-within:outline-primary"
+        className="cursor-pointer text-xs text-primary dark:text-gray-600 hover:underline mt-1 outline-0 focus-within:outline-1 focus-within:outline-primary"
       >
         + Create a shelf
       </button>

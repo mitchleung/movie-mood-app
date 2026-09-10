@@ -38,7 +38,7 @@ export function ShelfList() {
       </div>
 
       {shelves.length === 0 ? (
-        <p className="text-gray-600 text-center">No shelves yet — create one above.</p>
+        <p className="text-gray-600 dark:text-gray-400 text-center">No shelves yet — create one above.</p>
       ) : (
         shelves.map((shelf) => <ShelfCard key={shelf.id} shelfId={shelf.id} />)
       )}
