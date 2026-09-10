@@ -14,7 +14,7 @@ export function ShelfPicker({ movieId }: { movieId: number }) {
     return (
       <button
         onClick={() => setShowInput(true)}
-        className="cursor-pointer text-xs text-primary dark:text-gray-600 hover:underline mt-1 outline-0 focus-within:outline-1 focus-within:outline-primary"
+        className="cursor-pointer text-xs text-primary dark:text-gray-300 hover:underline mt-1 outline-0 focus-within:outline-1 focus-within:outline-primary"
       >
         + Create a shelf
       </button>
@@ -65,7 +65,7 @@ export function ShelfPicker({ movieId }: { movieId: number }) {
         }
       }}
       aria-label="Add to shelf"
-      className="text-xs border rounded mt-1 w-full py-1 text-gray-700"
+      className="text-xs border rounded mt-1 w-full py-1 text-gray-700 dark:text-gray-300"
     >
       <option value="" disabled>
         Add to shelf...

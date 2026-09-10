@@ -55,7 +55,9 @@ export default function BrowsePage() {
                 })
               }
               className={`snap-start px-3 py-1 rounded-full border whitespace-nowrap outline-0 focus-within:outline-1 focus-within:outline-primary cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-gray-700 ${
-                selectedMoodId === mood.id ? "bg-gray-800 text-white" : "bg-white"
+                selectedMoodId === mood.id
+                  ? "bg-gray-800 text-white"
+                  : "bg-white"
               }`}
             >
               {mood.emoji} {mood.label}
@@ -69,13 +71,11 @@ export default function BrowsePage() {
       {!isLoading && !error && movies.length === 0 && <p>No movies found.</p>}
       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
         {movies.map((movie) => (
-          <div
+          <MovieCard
             key={movie.id}
-            onClick={() => setSelectedMovie(movie)}
-            className="cursor-pointer"
-          >
-            <MovieCard movie={movie} />
-          </div>
+            movie={movie}
+            onOpenDetail={setSelectedMovie}
+          />
         ))}
       </div>
 
