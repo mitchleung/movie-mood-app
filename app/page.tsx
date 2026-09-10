@@ -54,8 +54,8 @@ export default function BrowsePage() {
                   return mood.id;
                 })
               }
-              className={`snap-start px-3 py-1 rounded-full border whitespace-nowrap outline-0 focus-within:outline-1 focus-within:outline-primary cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
-                selectedMoodId === mood.id ? "bg-black text-white" : "bg-white"
+              className={`snap-start px-3 py-1 rounded-full border whitespace-nowrap outline-0 focus-within:outline-1 focus-within:outline-primary cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed text-gray-700 ${
+                selectedMoodId === mood.id ? "bg-gray-800 text-white" : "bg-white"
               }`}
             >
               {mood.emoji} {mood.label}

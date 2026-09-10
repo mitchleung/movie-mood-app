@@ -32,15 +32,15 @@ export function MovieCard({ movie }: { movie: TmdbMovie }) {
           }}
           aria-label={isFavourite ? "Remove from favourites" : "Add to favourites"}
           aria-pressed={isFavourite}
-          className="cursor-pointer absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center text-lg shadow outline-0 focus-within:outline-1 focus-within:outline-primary"
+          className="cursor-pointer absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center text-lg text-gray-700 shadow outline-0 focus-within:outline-1 focus-within:outline-primary"
         >
           {isFavourite ? "★" : "☆"}
         </button>
       </div>
 
       <div className="p-2">
-        <p className="font-medium text-sm truncate">{movie.title}</p>
-        <p className="text-xs text-gray-500">
+        <p className="font-medium text-gray-700 text-sm truncate">{movie.title}</p>
+        <p className="text-xs text-gray-600">
           {movie.release_date?.slice(0, 4) || "—"} · ⭐{" "}
           {movie.vote_average.toFixed(1)}
         </p>

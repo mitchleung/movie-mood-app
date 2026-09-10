@@ -65,7 +65,7 @@ export function ShelfPicker({ movieId }: { movieId: number }) {
         }
       }}
       aria-label="Add to shelf"
-      className="text-xs border rounded mt-1 w-full py-1"
+      className="text-xs border rounded mt-1 w-full py-1 text-gray-700"
     >
       <option value="" disabled>
         Add to shelf...

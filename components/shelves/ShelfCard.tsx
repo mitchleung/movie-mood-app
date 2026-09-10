@@ -39,13 +39,13 @@ export function ShelfCard({ shelfId }: { shelfId: string }) {
             const posterUrl = getPosterUrl(movie.posterPath, "w200");
             return (
               <div key={movie.id} className="text-center">
-                <div className="relative aspect-2/3 bg-gray-100 rounded overflow-hidden mb-1 w-full h-full ">
+                <div className="relative aspect-2/3 bg-gray-100 rounded overflow-hidden mb-1">
                   <MoviePoster posterUrl={posterUrl} title={movie.title} />
                 </div>
                 <p className="text-xs truncate">{movie.title}</p>
                 <button
                   onClick={() => removeMovieFromShelf(shelf.id, movie.id)}
-                  className="cursor-pointer text-xs text-gray-500 hover:underline outline-0 focus-within:outline-1 focus-within:outline-primary"
+                  className="cursor-pointer text-xs text-gray-600 dark:text-gray-400 hover:underline outline-0 focus-within:outline-1 focus-within:outline-primary"
                 >
                   Remove
                 </button>
