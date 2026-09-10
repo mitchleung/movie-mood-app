@@ -1,69 +1,81 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import { useMovies } from "@/hooks/useMovies";
+import { MOODS } from "@/lib/moods";
+import { MovieCard } from "@/components/movies/MovieCard";
+import { MovieDetailModal } from "@/components/movies/MovieDetailModal";
+import { TmdbMovie } from "@/lib/types";
+
+export default function BrowsePage() {
+  const [selectedMoodId, setSelectedMoodId] = useState(MOODS[0].id);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const selectedMood = MOODS.find((m) => m.id === selectedMoodId) ?? null;
+  const { movies, isLoading, isLoadingMore, error, hasMore, loadMore } =
+    useMovies(selectedMood, searchQuery);
+  const [selectedMovie, setSelectedMovie] = useState<TmdbMovie | null>(null);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="p-6 mx-auto max-w-7xl">
+      <h1 className="text-2xl font-bold mb-4 text-center">Mood Shelf</h1>
+
+      <input
+        type="text"
+        placeholder="Search movies..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border px-3 py-2 rounded mb-4 mx-auto w-full block max-w-md outline-0 focus-within:outline-1 focus-within:outline-primary ring-0"
+      />
+
+      <div className="relative">
+        <div className="flex gap-2 mb-6 overflow-auto scrollbar-thin before:content-[''] before:absolute before:inset-y-0 before:left-0 before:bottom-6 before:w-6 before:bg-linear-to-r before:from-white before:to-transparent before:pointer-events-none before:z-10 after:content-[''] after:absolute after:inset-y-0 after:right-0 after:bottom-6 after:w-6 after:bg-linear-to-l after:from-white after:to-transparent after:pointer-events-none after:z-10 snap-x scroll-ps-6 scroll-pe-6 px-6 pb-6">
+          {MOODS.map((mood) => (
+            <button
+              key={mood.id}
+              onClick={() => setSelectedMoodId(mood.id)}
+              className={`snap-start px-3 py-1 rounded-full border whitespace-nowrap outline-0 focus-within:outline-1 focus-within:outline-primary cursor-pointer ${
+                selectedMoodId === mood.id ? "bg-black text-white" : "bg-white"
+              }`}
+            >
+              {mood.emoji} {mood.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {isLoading && <p>Loading...</p>}
+      {error && <p className="text-red-600">Error: {error}</p>}
+      {!isLoading && !error && movies.length === 0 && <p>No movies found.</p>}
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+        {movies.map((movie) => (
+          <div
+            key={movie.id}
+            onClick={() => setSelectedMovie(movie)}
+            className="cursor-pointer"
+          >
+            <MovieCard movie={movie} />
+          </div>
+        ))}
+      </div>
+
+      {selectedMovie && (
+        <MovieDetailModal
+          movie={selectedMovie}
+          onClose={() => setSelectedMovie(null)}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      )}
+      {hasMore && !isLoading && (
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={loadMore}
+            disabled={isLoadingMore}
+            className="px-4 py-2 border rounded text-sm disabled:opacity-50 outline-0 focus-within:outline-1 focus-within:outline-primary"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {isLoadingMore ? "Loading..." : "Load more"}
+          </button>
         </div>
-      </main>
+      )}
     </div>
   );
 }

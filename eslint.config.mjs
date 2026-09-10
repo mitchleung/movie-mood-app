@@ -13,6 +13,23 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@/lib/tmdb",
+              importNames: ["discoverByMood", "searchMovies"],
+              message:
+                "Import TMDB API calls via hooks/useMovies.ts, not directly. (getPosterUrl is fine to import directly — it's a pure utility, not an API call.)",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;
