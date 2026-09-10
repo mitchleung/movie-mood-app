@@ -13,7 +13,7 @@ export function MovieCard({ movie }: { movie: TmdbMovie }) {
   const posterUrl = getPosterUrl(movie.poster_path);
 
   return (
-    <div className="border rounded-lg overflow-hidden flex flex-col bg-white">
+    <div className="border rounded-lg overflow-hidden flex flex-col bg-white hover:group">
       <div className="relative aspect-2/3 bg-gray-100">
         {posterUrl ? (
           <MoviePoster posterUrl={posterUrl} title={movie.title} />

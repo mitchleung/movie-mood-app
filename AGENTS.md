@@ -29,11 +29,11 @@ Mood Shelf — a movie discovery app for the MPF front-end exercise. Users brows
 
 ```
 app/                    # routes only — pages compose components, no business logic here
-  layout.tsx            # root layout, fonts, Header
+  layout.tsx            # root layout, fonts, Header, Footer
   page.tsx              # "/" Browse page
   shelves/page.tsx       # "/shelves" page
 components/
-  layout/               # Header, NavBar — Server Components, no hooks
+  layout/               # Header, Footer, NavBar — Server Components, no hooks
   movies/               # MovieCard, MovieGrid, MovieDetailModal
   moods/                # MoodPicker
   shelves/              # ShelfList, ShelfCard, ShelfPicker

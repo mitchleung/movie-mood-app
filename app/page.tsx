@@ -19,24 +19,42 @@ export default function BrowsePage() {
   return (
     <div className="p-6 mx-auto max-w-7xl">
       <h1 className="text-2xl font-bold mb-4 text-center">Mood Shelf</h1>
-    <p className="mx-auto max-w-md">
-Pick movies by mood. Add to your favourites and you can also put movies into different shelf.
-    </p>
-      <input
-        type="text"
-        placeholder="Search movies..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="border px-3 py-2 rounded mb-4 mx-auto w-full block max-w-md outline-0 focus-within:outline-1 focus-within:outline-primary ring-0"
-      />
+      <p className="mx-auto max-w-md">
+        Pick movies by mood. Add to your favourites and you can also put movies
+        into different shelf.
+      </p>
+      <div className="relative mb-4 mx-auto max-w-md">
+        <input
+          type="text"
+          placeholder="Search movies..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border px-3 py-2 rounded  w-full block outline-0 focus-within:outline-1 focus-within:outline-primary ring-0"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery("")}
+            aria-label="Clear search"
+            className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black"
+          >
+            ×
+          </button>
+        )}
+      </div>
 
       <div className="relative">
         <div className="flex gap-2 mb-6 overflow-auto scrollbar-thin before:content-[''] before:absolute before:inset-y-0 before:left-0 before:bottom-6 before:w-6 before:bg-linear-to-r before:from-white before:to-transparent before:pointer-events-none before:z-10 after:content-[''] after:absolute after:inset-y-0 after:right-0 after:bottom-6 after:w-6 after:bg-linear-to-l after:from-white after:to-transparent after:pointer-events-none after:z-10 snap-x scroll-ps-6 scroll-pe-6 px-6 pb-6">
           {MOODS.map((mood) => (
             <button
               key={mood.id}
-              onClick={() => setSelectedMoodId(mood.id)}
-              className={`snap-start px-3 py-1 rounded-full border whitespace-nowrap outline-0 focus-within:outline-1 focus-within:outline-primary cursor-pointer ${
+              disabled={searchQuery.trim().length > 0}
+              onClick={() =>
+                setSelectedMoodId(() => {
+                  // clear text input
+                  return mood.id;
+                })
+              }
+              className={`snap-start px-3 py-1 rounded-full border whitespace-nowrap outline-0 focus-within:outline-1 focus-within:outline-primary cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
                 selectedMoodId === mood.id ? "bg-black text-white" : "bg-white"
               }`}
             >

@@ -1,8 +1,5 @@
 import type { TmdbMovie } from "./types";
 
-const BASE_URL = "https://api.themoviedb.org/3";
-const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
-
 type TmdbResponse = {
   page: number;
   results: TmdbMovie[];
@@ -10,37 +7,6 @@ type TmdbResponse = {
   total_results: number;
 };
 
-/**
- * 
- * @param path 
- * @param params 
- * @returns 
- */
-async function tmdbFetch(path: string, params: Record<string, string> = {}) {
-  const url = new URL(`${BASE_URL}${path}`);
-  Object.entries(params).forEach(([key, value]) =>
-    url.searchParams.set(key, value),
-  );
-
-  const res = await fetch(url.toString(), {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-      accept: "application/json",
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error(`TMDB request failed: ${res.status}`);
-  }
-  return res.json();
-}
-/**
- * 
- * @param genreIds 
- * @param filters 
- * @param page 
- * @returns 
- */
 export async function discoverByMood(
   genreIds: number[],
   filters?: {
@@ -49,42 +15,38 @@ export async function discoverByMood(
     runtimeGte?: number;
   },
   page: number = 1,
+  signal?: AbortSignal,
 ): Promise<TmdbResponse> {
-  return tmdbFetch("/discover/movie", {
+  const params = new URLSearchParams({
     with_genres: genreIds.join(","),
-    ...(filters?.voteAverageGte && {
-      "vote_average.gte": String(filters.voteAverageGte),
-    }),
-    ...(filters?.runtimeLte && {
-      "with_runtime.lte": String(filters.runtimeLte),
-    }),
-    ...(filters?.runtimeGte && {
-      "with_runtime.gte": String(filters.runtimeGte),
-    }),
     sort_by: "popularity.desc",
     page: String(page),
   });
+  if (filters?.voteAverageGte)
+    params.set("vote_average.gte", String(filters.voteAverageGte));
+  if (filters?.runtimeLte)
+    params.set("with_runtime.lte", String(filters.runtimeLte));
+  if (filters?.runtimeGte)
+    params.set("with_runtime.gte", String(filters.runtimeGte));
+
+  const res = await fetch(`/api/tmdb/discover?${params.toString()}`, {
+    signal,
+  });
+  if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+  return res.json();
 }
 
-/**
- * 
- * @param query 
- * @param page 
- * @returns 
- */
 export async function searchMovies(
   query: string,
   page: number = 1,
+  signal?: AbortSignal,
 ): Promise<TmdbResponse> {
-  return tmdbFetch("/search/movie", { query, page: String(page) });
+  const params = new URLSearchParams({ query, page: String(page) });
+  const res = await fetch(`/api/tmdb/search?${params.toString()}`, { signal });
+  if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+  return res.json();
 }
 
-/**
- * 
- * @param posterPath 
- * @param size 
- * @returns 
- */
 export function getPosterUrl(
   posterPath: string | null,
   size: "w200" | "w342" | "w500" = "w342",

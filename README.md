@@ -17,47 +17,54 @@ A small app for browsing movies by *mood* instead of genre, and building persona
 
 ## Folder structure
 
+```
 mood-shelf/
 ├── app/
-│   ├── layout.tsx                 # Root layout, fonts, global nav
-│   ├── page.tsx                   # "/" — Browse page (mood picker + search + grid)
+│   ├── layout.tsx                  # Root layout, fonts, global nav
+│   ├── page.tsx                    # "/" — Browse page (mood picker + search + grid)
 │   ├── shelves/
 │   │   └── page.tsx                # "/shelves" — My Shelves page
 │   └── globals.css
 │
 ├── components/
 │   ├── layout/
+│   │   ├── Header.tsx
 │   │   └── NavBar.tsx
+│   │   └── Footer.tsx
 │   ├── movies/
 │   │   ├── MovieCard.tsx           # poster, title, favourite button
 │   │   ├── MovieGrid.tsx           # renders list of MovieCards, handles empty state
-│   │   └── MovieDetailModal.tsx    # slide-over/modal for movie details
+│   │   └── MovieDetailModal.tsx    # modal for movie details
 │   ├── moods/
 │   │   └── MoodPicker.tsx          # chips/tabs for selecting a mood
 │   ├── shelves/
 │   │   ├── ShelfList.tsx           # renders all shelves on /shelves
 │   │   ├── ShelfCard.tsx           # one shelf + its movies
-│   │   └── ShelfPicker.tsx         # dropdown to assign a favourite to a shelf
+│   │   └── ShelfPicker.tsx         # dropdown/inline create to assign a favourite to a shelf
 │   └── ui/
 │       ├── SearchBar.tsx
 │       ├── LoadingSpinner.tsx
 │       └── ErrorMessage.tsx
 │
 ├── lib/
-│   ├── tmdb.ts                     # all TMDB API calls live here (fetchDiscover, searchMovies, etc.)
-│   ├── moods.ts                    # your mood config (already drafted)
+│   ├── tmdb.ts                     # only file that calls the TMDB API directly
+│   ├── moods.ts                    # mood → genre/filter config
 │   └── types.ts                    # Movie, Shelf, Mood TypeScript types
 │
 ├── store/
-│   └── useShelfStore.ts            # Zustand store: favourites + shelves + actions
+│   └── useShelfStore.ts            # Zustand store: favourites + shelves + actions, persisted
 │
 ├── hooks/
-│   ├── useMovies.ts                # wraps tmdb.ts calls + loading/error state (or use SWR/React Query directly here)
-│   └── usePersistedStore.ts        # localStorage sync wrapper, if not handled via Zustand's persist middleware
+│   └── useMovies.ts                # wraps tmdb.ts calls + loading/error/pagination state
+│
+├── e2e/
+│   └── a11y.spec.ts                # Playwright + axe-core accessibility tests
 │
 ├── .env.local
 ├── README.md
+├── AGENTS.md
 └── package.json
+```
 
 ---
 
