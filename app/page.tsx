@@ -43,7 +43,7 @@ export default function BrowsePage() {
       </div>
 
       <div className="relative">
-        <div className="flex gap-2 mb-6 overflow-auto scrollbar-thin before:content-[''] before:absolute before:inset-y-0 before:left-0 before:bottom-6 before:w-6 before:bg-linear-to-r before:from-white before:to-transparent before:pointer-events-none before:z-10 after:content-[''] after:absolute after:inset-y-0 after:right-0 after:bottom-6 after:w-6 after:bg-linear-to-l after:from-white after:to-transparent after:pointer-events-none after:z-10 snap-x scroll-ps-6 scroll-pe-6 px-6 pb-6">
+        <div className="flex gap-2 mb-6 overflow-auto scrollbar-thin before:content-[''] before:absolute before:inset-y-0 before:left-0 before:bottom-6 before:w-6 before:bg-linear-to-r before:from-background before:to-transparent before:pointer-events-none before:z-10 after:content-[''] after:absolute after:inset-y-0 after:right-0 after:bottom-6 after:w-6 after:bg-linear-to-l after:from-background after:to-transparent after:pointer-events-none after:z-10 snap-x scroll-ps-6 scroll-pe-6 px-6 pb-6">
           {MOODS.map((mood) => (
             <button
               key={mood.id}
