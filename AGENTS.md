@@ -21,7 +21,7 @@ Mood Shelf — a movie discovery app for the MPF front-end exercise. Users brows
 
 - Next.js (App Router), TypeScript, Tailwind CSS
 - Zustand for global state, using the `persist` middleware for localStorage — do not hand-roll localStorage read/write logic
-- TMDB API v4 auth (Bearer token via `NEXT_PUBLIC_TMDB_ACCESS_TOKEN` in `.env.local`), not the v3 `api_key` query param
+- TMDB API v4 auth (Bearer token via `TMDB_ACCESS_TOKEN` in `.env.local`), not the v3 `api_key` query param
 - No additional state libraries, no UI component libraries (build with Tailwind directly)
 - Plain `<img>` for TMDB posters, not `next/image` (avoids `remotePatterns` config overhead — acceptable trade-off, note it in README if not already there)
 

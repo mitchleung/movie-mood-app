@@ -98,8 +98,8 @@ npm install
 Create a `.env.local` file with a TMDB API key & access token:
 
 ```
-NEXT_PUBLIC_TMDB_API_KEY=your_key_here
-NEXT_PUBLIC_TMDB_ACCESS_TOKEN=your_access_token
+TMDB_API_KEY=your_key_here
+TMDB_ACCESS_TOKEN=your_access_token
 ```
 
 Then:

@@ -1,7 +1,7 @@
 import type { TmdbMovie } from "./types";
 
 const BASE_URL = "https://api.themoviedb.org/3";
-const ACCESS_TOKEN = process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN;
+const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 
 type TmdbResponse = {
   page: number;
