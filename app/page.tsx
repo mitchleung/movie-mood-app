@@ -19,7 +19,9 @@ export default function BrowsePage() {
   return (
     <div className="p-6 mx-auto max-w-7xl">
       <h1 className="text-2xl font-bold mb-4 text-center">Mood Shelf</h1>
-
+    <p className="mx-auto max-w-md">
+Pick movies by mood. Add to your favourites and you can also put movies into different shelf.
+    </p>
       <input
         type="text"
         placeholder="Search movies..."

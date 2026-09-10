@@ -25,16 +25,16 @@ export function ShelfCard({ shelfId }: { shelfId: string }) {
         <button
           onClick={() => deleteShelf(shelf.id)}
           aria-label={`Delete shelf ${shelf.name}`}
-          className="cursor-pointer text-sm text-danger hover:underline outline-0 focus-within:outline-1 focus-within:outline-primary"
+          className="cursor-pointer text-sm text-red-500 hover:underline outline-0 focus-within:outline-1 focus-within:outline-primary"
         >
           Delete shelf
         </button>
       </div>
 
       {shelfMovies.length === 0 ? (
-        <p className="text-sm text-gray-600">No movies on this shelf yet.</p>
+        <p className="text-sm text-gray-600 mx-auto max-w-md">No movies on this shelf yet.</p>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
           {shelfMovies.map((movie) => {
             const posterUrl = getPosterUrl(movie.posterPath, "w200");
             return (

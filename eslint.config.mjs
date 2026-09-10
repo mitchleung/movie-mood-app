@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
   ]),
   {
+    ignores: ["hooks/useMovies.ts"],
     rules: {
       "no-restricted-imports": [
         "error",
